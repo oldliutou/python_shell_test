@@ -21,6 +21,7 @@ print(exp)
 parms = {'uname': exp,'passwd':'admin','submit':'Submit'}
 url = "http://localhost/sqli-labs/Less-14/"
 
+
 def get_fun():
     results = requests.post(url,data=parms).text
     print(results)
