@@ -1,5 +1,5 @@
 import requests
-# inject_type =  登录成功，通过Referer 报错注入
+# inject_type =  登录成功，通过Cookie 报错注入
 pre_inject_str = "-1'"
 suff_inject_str = "#"
 mid_start_pos = 1
