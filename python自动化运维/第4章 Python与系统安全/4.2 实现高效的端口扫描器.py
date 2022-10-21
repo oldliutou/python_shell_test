@@ -30,3 +30,6 @@ except Exception as e:
 for host in nm.all_hosts(): #遍历扫描主机
     print('-'*12)
     print(f"Host:{host} ({nm[host].hostname()})")
+    print('State ： %s' % nm[host].state())  # 输出主机状态， 如up、down
+    for proto in nm[host].all_protocols():  # 遍历扫描协议，如 tcp、udp
+        print('Protocol ： %s' % proto)  # 输入协议名 lport = nm[host][proto].keys（） #获取协议的所有扫描端口 lport.sort（） #端口列表排序 for port in lport： #遍历端口及输出端口与状态 print（'port ： %s\tstate ： %s' % （port， nm[host] [proto][port]['state']））
