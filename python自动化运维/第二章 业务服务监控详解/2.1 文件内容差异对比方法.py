@@ -17,3 +17,4 @@ def html_diff():
     print(d.make_file(text1_lines,text2_lines))
 if __name__ == '__main__':
     html_diff()
+
